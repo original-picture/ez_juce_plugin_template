@@ -4,11 +4,13 @@ name: CMake on multiple platforms
 
 on:
   push:
-    branches: [ "master" ]
     tags:
-    - runci
+      - 'run-ci'
+      - 'v*'
+
   pull_request:
-    branches: [ "master" ]
+    branches:
+      - '*'
 
 jobs:
   build:
@@ -139,7 +141,7 @@ jobs:
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v') && ${{ matrix.c_compiler != 'clang' }}
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ github.event.repository.name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format_extension }}
+        name: ${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format_extension }}
         path: ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.build_type }}/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format_extension }}
 
   release:
@@ -170,7 +172,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create ${{ github.event.ref }} \
+          gh release create ${{ github.ref_name }} \
               --repo=${{ github.repository }} \
               --notes="${{ github.event.head_commit.message }}"
               ${{ github.workspace }}/artifacts/*.zip
