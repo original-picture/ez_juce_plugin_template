@@ -169,10 +169,9 @@ jobs:
           tree -a ${{ github.workspace }}/artifacts
 
       - name: Create release
-        run: |
-          sudo echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
-          sudo gh release create ${{ github.ref_name }} \
-              --repo=${{ github.repository }} \
-              --notes="${{ github.event.head_commit.message }}"
-              ${{ github.workspace }}/artifacts/*.zip
+        uses: softprops/action-gh-release@v2
+        if: github.ref_type == 'tag'
+        with:
+          files: |
+            ${{ github.workspace }}/artifacts/*.zip
         
