@@ -162,7 +162,7 @@ jobs:
           sudo apt-get install zip
           tree -a ${{ github.workspace }}
           for f in ${{ github.workspace }}/artifacts/*; do
-            zip "${f}" "${f}".zip 
+            zip -r "${f}".zip "${f}"
           done
           tree -a ${{ github.workspace }}/artifacts
 
