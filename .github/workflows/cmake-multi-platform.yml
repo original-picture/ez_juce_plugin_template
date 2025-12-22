@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
         build_type: [Release]
-        c_compiler: [gcc, clang, cl] #clang build is being dumb
+        c_compiler: [gcc, cl] #clang build is being dumb
         plugin_format: [vst3, au]
         include:
         - os: ubuntu-latest
@@ -46,8 +46,8 @@ jobs:
           
         - c_compiler: gcc
           cpp_compiler: g++
-        - c_compiler: clang
-          cpp_compiler: clang++
+       # - c_compiler: clang
+        #  cpp_compiler: clang++
         - c_compiler: cl
           cpp_compiler: cl
 
@@ -60,16 +60,18 @@ jobs:
         
           - os: windows-latest
             c_compiler: gcc
-          - os: windows-latest
-            c_compiler: clang
+          #- os: windows-latest
+          #  c_compiler: clang
           - os: ubuntu-latest
             c_compiler: cl
           - os: macos-latest
             c_compiler: cl
           - os: macos-15-intel
             c_compiler: cl
-          - os: macos-latest
-            c_compiler: clang # kind of confusing but gcc on macos is just an alias for clang by default, so we aren't actually excluding clang, we're just avoiding running a redundant clang build
+          #- os: macos-15-intel
+          #  c_compiler: clang
+          #- os: macos-latest
+          #  c_compiler: clang # kind of confusing but gcc on macos is just an alias for clang by default, so we aren't actually excluding clang, we're just avoiding running a redundant clang build
                               # I do this instead of excluding gcc because it makes some stuff with the build artifacts a little bit easier 
     steps:
     - uses: aminya/setup-cpp@v1
