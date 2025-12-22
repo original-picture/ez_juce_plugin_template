@@ -161,7 +161,7 @@ jobs:
 
       - name: zip artifacts
         run: |
-          sudo apt-get install zip
+          sudo apt-get install zip gh
           tree -a ${{ github.workspace }}
           for f in ${{ github.workspace }}/artifacts/*; do
             zip -r "${f}".zip "${f}"
