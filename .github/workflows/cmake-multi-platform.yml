@@ -170,8 +170,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create {{ github.event.ref }} \
+          gh release create ${{ github.event.ref }} \
               --repo=${{ github.repository }} \
-              --generate-notes
+              --notes=${{ github.event.head_commit.message }}
               ${{ github.workspace }}/artifacts/*.zip
         
