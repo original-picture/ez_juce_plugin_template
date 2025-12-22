@@ -11,7 +11,7 @@ public:
 
     processor() {
         ez_parameter_init();
-    } //
+    } ////
 
     bool hasEditor() const override { return false; }
     juce::AudioProcessorEditor* createEditor() override { return nullptr; }
