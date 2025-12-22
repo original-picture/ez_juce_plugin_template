@@ -149,7 +149,7 @@ jobs:
     steps:
       - name: create artifacts directory
         run: mkdir artifacts
-        
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
@@ -158,7 +158,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: artifacts/*
+          files: ${{ github.workspace }}/artifacts/*/*
           tag_name: ${{ github.sha }}
           body: ${{ github.event.workflow_run.head_commit.message }}
           
