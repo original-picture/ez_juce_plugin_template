@@ -8,7 +8,7 @@ class processor : public ez::processor {
 public:
     EZ_AUTOREG_PARAM(              juce::AudioParameterFloat , gain, 0.f, 1.f, .5f);
     EZ_AUTOREG_PARAM(ez::parameter<juce::AudioParameterFloat>, time, 0.f, 1.f, .5f);
-
+//
     processor() {
         ez_parameter_init();
     }
