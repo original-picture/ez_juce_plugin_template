@@ -157,9 +157,14 @@ jobs:
         with:
           path: ${{ github.workspace }}/artifacts
 
-      - name: create artifacts directory
+      - name: zip artifacts
         run: |
+          sudo apt-get install zip
           tree -a ${{ github.workspace }}
+          for f in ${{ github.workspace }}/artifacts; do
+            zip "${f}" "${f}".zip 
+          done
+          tree -a ${{ github.workspace }}/artifacts
 
       - name: Create release
         env:
@@ -168,5 +173,5 @@ jobs:
           gh release create ${{ github.ref_name }} \
               --repo=${{ github.repository }} \
               --generate-notes
-              ${{ github.workspace }}/artifacts/*
+              ${{ github.workspace }}/artifacts/*.zip
         
