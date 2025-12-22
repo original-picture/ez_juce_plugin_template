@@ -66,6 +66,8 @@ jobs:
             c_compiler: cl
           - os: macos-latest
             c_compiler: cl
+          - os: macos-15-intel
+            c_compiler: cl
           - os: macos-latest
             c_compiler: clang # kind of confusing but gcc on macos is just an alias for clang by default, so we aren't actually excluding clang, we're just avoiding running a redundant clang build
                               # I do this instead of excluding gcc because it makes some stuff with the build artifacts a little bit easier 
