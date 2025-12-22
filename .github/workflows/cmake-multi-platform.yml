@@ -124,14 +124,14 @@ jobs:
     - name: rename artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
       shell: bash
-      run: mv ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ matrix.plugin_format_allcaps }}/*.${{ matrix.plugin_format }} ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
+      run: mv ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ matrix.plugin_format_allcaps }}/*.${{ matrix.plugin_format }} ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.event.ref }}.split('v')[1]-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
 
     - name: upload artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
       uses: actions/upload-artifact@v4
       with:
         name: artifact-${{ matrix.os }}-${{ matrix.plugin_format }}
-        path: ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
+        path: ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.event.ref }}.split('v')[1]-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
 
   release:
     runs-on: ubuntu-latest
