@@ -121,14 +121,11 @@ jobs:
       # See https://cmake.org/cmake/help/latest/manual/ctest.1.html for more detail
       run: ctest --build-config ${{ matrix.build_type }}
 
-    - name: debug output
-      run: echo
-
     - name: rename artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
-      shell: pwsh
-      run: Move-Item -Path ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ matrix.plugin_format_allcaps }}/*.${{ matrix.plugin_format }} -Destination ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
-      
+      shell: bash
+      run: mv ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ matrix.plugin_format_allcaps }}/*.${{ matrix.plugin_format }} ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
+
     - name: upload artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
       uses: actions/upload-artifact@v4
