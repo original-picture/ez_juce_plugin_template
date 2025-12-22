@@ -111,7 +111,7 @@ jobs:
 
     - name: Build
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target ${{ github.event.repository.name }}_${{ plugin_format_allcaps }}
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} --target ${{ github.event.repository.name }}_${{ matrix.plugin_format_allcaps }}
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
@@ -122,14 +122,14 @@ jobs:
     - name: rename artifact
       if: startsWith(github.event.ref, 'refs/tags/v')
       shell: pwsh
-      run: Move-Item -Path ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ plugin_format_allcaps }}/*.${{ plugin_format }} -Destination ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ os_name_pretty }}.${{ plugin_format }}
+      run: Move-Item -Path ${{ steps.strings.outputs.build-output-dir }}/*_artefacts/${{ matrix.plugin_format_allcaps }}/*.${{ matrix.plugin_format }} -Destination ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
       
     - name: upload artifact
       if: startsWith(github.event.ref, 'refs/tags/v')
       uses: actions/upload-artifact@v4
       with:
-        name: artifact-${{ matrix.os }}-${{ plugin_format }}
-        path: ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ os_name_pretty }}.${{ plugin_format }}
+        name: artifact-${{ matrix.os }}-${{ matrix.plugin_format }}
+        path: ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.ref_name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
 
   release:
     runs-on: ubuntu-latest
