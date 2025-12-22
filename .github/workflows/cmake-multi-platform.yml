@@ -162,12 +162,9 @@ jobs:
           tree -a ${{ github.workspace }}
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          prerelease: false
           files: ${{ github.workspace }}/artifacts/*
-          tag_name: ${{ github.sha }}
-          body: ${{ github.event.workflow_run.head_commit.message }}
-          
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
