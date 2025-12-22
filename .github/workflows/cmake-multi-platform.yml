@@ -165,7 +165,7 @@ jobs:
           tree -a ${{ github.workspace }}
           for f in ${{ github.workspace }}/artifacts/*; do
             echo "zipping ${f}.zip ${f}"
-            zip -r "${f}".zip "${f}"
+            zip -j -r "${f}".zip "${f}"
           done
           tree -a ${{ github.workspace }}/artifacts
 
