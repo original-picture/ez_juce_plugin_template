@@ -140,7 +140,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ github.event.repository.name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format_extension }}
-        path: ${{ github.workspace }}/${{ github.event.repository.name }}.${{ matrix.plugin_format_extension }}
+        path: ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.build_type }}/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format_extension }}
 
   release:
     runs-on: ubuntu-latest
