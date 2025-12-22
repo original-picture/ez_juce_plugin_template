@@ -56,6 +56,7 @@ jobs:
           - os: windows-latest
             plugin_format: au
           - os: ubuntu-latest  
+            plugin_format: au
         
           - os: windows-latest
             c_compiler: gcc
