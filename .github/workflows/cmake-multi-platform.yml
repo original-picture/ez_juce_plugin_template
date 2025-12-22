@@ -157,6 +157,10 @@ jobs:
         with:
           path: ${{ github.workspace }}/artifacts
 
+      - name: create artifacts directory
+        run: |
+          tree -a ${{ github.workspace }}
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
