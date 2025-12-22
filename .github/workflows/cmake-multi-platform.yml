@@ -169,9 +169,6 @@ jobs:
           tree -a ${{ github.workspace }}/artifacts
 
       - name: Create release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           sudo echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
           sudo gh release create ${{ github.ref_name }} \
