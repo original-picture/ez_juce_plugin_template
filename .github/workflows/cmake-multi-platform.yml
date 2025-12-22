@@ -7,10 +7,12 @@ on:
     tags:
       - 'run-ci'
       - 'v*'
+    branches:
+      - '**'
 
   pull_request:
     branches:
-      - '*'
+      - '**'
 
 jobs:
   build:
