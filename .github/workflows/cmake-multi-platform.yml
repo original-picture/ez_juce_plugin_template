@@ -125,7 +125,7 @@ jobs:
     - name: rename artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
       shell: bash
-      run: mv ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format }} ${{  steps.strings.outputs.plugin-artifact-path }}
+      run: mv ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format }} ${{ steps.strings.outputs.plugin-artifact-path }}
 
     - name: upload artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v') && ${{ matrix.c_compiler != 'clang' }}
