@@ -27,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest, macos-15-intel]
         build_type: [Release]
-        c_compiler: [gcc, clang, cl]
+        c_compiler: [gcc, cl] #clang build is being dumb
         plugin_format: [vst3, au]
         include:
         - os: ubuntu-latest
@@ -99,6 +99,7 @@ jobs:
       shell: bash
       run: |
         echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+        echo "plugin-artifact-path=${{ github.workspace }}/${{ github.event.repository.name }}-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}"  >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -124,14 +125,14 @@ jobs:
     - name: rename artifact
       if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
       shell: bash
-      run: mv ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format }} ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.event.ref }}.split('v')[1]-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
+      run: mv ${{ steps.strings.outputs.build-output-dir }}/${{ github.event.repository.name }}_artefacts/${{ matrix.plugin_format_allcaps }}/${{ github.event.repository.name }}.${{ matrix.plugin_format }} ${{ plugin-artifact-path }}
 
     - name: upload artifact
-      if: startsWith(${{ github.event.ref }}, 'refs/tags/v')
+      if: startsWith(${{ github.event.ref }}, 'refs/tags/v') && ${{ matrix.c_compiler != 'clang' }}
       uses: actions/upload-artifact@v4
       with:
         name: artifact-${{ matrix.os }}-${{ matrix.plugin_format }}
-        path: ${{ github.workspace }}/${{ github.event.repository.name }}-${{ github.event.ref }}.split('v')[1]-${{ matrix.os_name_pretty }}.${{ matrix.plugin_format }}
+        path: ${{ plugin-artifact-path }}
 
   release:
     runs-on: ubuntu-latest
