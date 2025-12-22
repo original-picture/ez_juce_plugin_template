@@ -161,10 +161,14 @@ jobs:
         run: |
           tree -a ${{ github.workspace }}
 
-      - name: Create GitHub Release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          prerelease: false
-          files: ${{ github.workspace }}/artifacts/*
+      - name: Create release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+        run: |
+          gh release create "$tag" \
+              --repo="$GITHUB_REPOSITORY" \
+              --title="${tag#v}" \
+              --notes-from-tag
+              ${{ github.workspace }}/artifacts/*
         
