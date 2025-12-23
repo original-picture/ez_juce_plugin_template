@@ -8,5 +8,5 @@ It has a neat build script that automatically generates releases
    If you don't do this, automatic release generation will fail  
 
 > [!NOTE]
-> this repo's github actions workflow assumes that the name of the cmake target for you plugin is exactly the same as the name of your github repo
+> this repo's github actions workflow assumes that the name of the cmake target for you plugin is exactly the same as the name of your github repo  
 > the CI will break if they don't match!
