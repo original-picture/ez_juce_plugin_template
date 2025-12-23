@@ -7,6 +7,6 @@ It has a neat build script that automatically generates releases
 2. once your new respository has been created, go into the settings page for the respository, then click actions, click general, scroll down to workflow permissions, and select "Read and write permissions".
    If you don't do this, automatic release generation will fail  
 
-> [!NOTE]
+> [!IMPORTANT]
 > this repo's github actions workflow assumes that the name of the cmake target for you plugin is exactly the same as the name of your github repo  
 > the CI will break if they don't match!
