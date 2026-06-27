@@ -26,15 +26,13 @@ juce_add_plugin(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PUBLIC lib/ez_audio lib/ez_juce)
 
-add_subdirectory(lib/ez_utils)
-
+add_subdirectory(lib/ez_audio)
+add_subdirectory(lib/ez_juce)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-        editor.cpp
-        processor.cpp
-        lib/ez_juce/ez_impl.cpp
-        # lib/ez_juce/ez_processor.cpp
+        ezjpt_editor.cpp
+        ezjpt_processor.cpp
         )
 
 target_compile_definitions(${PROJECT_NAME}

@@ -1,5 +1,5 @@
 #include "ez_processor.h"
-#include "editor.h"
+#include "ezjpt_editor.h"
 
 namespace ez {
 //==============================================================================
