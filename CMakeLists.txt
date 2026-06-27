@@ -27,12 +27,13 @@ juce_add_plugin(${PROJECT_NAME}
 target_include_directories(${PROJECT_NAME} PUBLIC lib/ez_audio lib/ez_juce)
 
 add_subdirectory(lib/ez_audio)
-add_subdirectory(lib/ez_juce)
 
 target_sources(${PROJECT_NAME}
     PRIVATE
         ezjpt_editor.cpp
         ezjpt_processor.cpp
+
+        lib/ez_juce/ez_juce_impl.cpp
         )
 
 target_compile_definitions(${PROJECT_NAME}
@@ -50,5 +51,5 @@ target_link_libraries(${PROJECT_NAME}
         juce::juce_recommended_lto_flags
         juce::juce_recommended_warning_flags
 
-        ez_utils)
+        ez_audio)
 
